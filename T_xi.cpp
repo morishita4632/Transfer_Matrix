@@ -16,12 +16,11 @@ int main() {
 
 
   double lmd1 = T.power1_R(temperature, vo, vn, v1R, vtmp1, vtmp2);
-  printf("%.9f\n", lmd1);
-  // X.power1_L(temperature, vo, vn, v1L, vtmp1, vtmp2);
-  // double lmd2 = X.power2(temperature, lmd1, vo, vn, v1R, v1L, vtmp1, vtmp2);
-  // double xi = X.calc_xi(temperature, vo, vn, vtmp1, vtmp2, v1R, v1L);
+  T.power1_L(temperature, vo, vn, v1L, vtmp1, vtmp2);
+  double lmd2 = T.power2(temperature, lmd1, vo, vn, v1R, v1L, vtmp1, vtmp2);
+  double xi = T.calc_xi(temperature, vo, vn, vtmp1, vtmp2, v1R, v1L);
 
-  // printf("λ1 = %.12f\n", lmd1);
-  // printf("λ2 = %.12f\n", lmd2);
-  // printf("ξ = %.12f\n", xi);
+  printf("λ1 = %.12f\n", lmd1);
+  printf("λ2 = %.12f\n", lmd2);
+  printf("ξ = %.12f\n", xi);
 }

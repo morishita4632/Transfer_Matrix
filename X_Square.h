@@ -115,12 +115,78 @@ class X_Square {
   }
 
 
+  // Uv^T -> v
+  void product_U_T(double temperature, double* v, double* vtmp) {
+    double w1[2] = {1.0, exp(-2.0 * Js[1] / temperature)};
+    double w2[2] = {1.0, exp(-2.0 * Js[2] / temperature)};
+    double w3[2] = {1.0, exp(-2.0 * Js[3] / temperature)};
+
+    for (int s = 0; s < dim4; s++)
+      vtmp[s] = 0.0;
+    for (int s = 0; s < dim; s++) {
+      int mask_lu = dim >> 1;
+
+      int smm = s | ((s & mask_lu) << 2);
+      smm &= ~mask_lu;
+
+      int smp = smm | dim, spm = smm | mask_lu;
+      int spp = smp | spm;
+
+      int s_s[4] = {smm, smp, spm, spp};
+      for (int k = 0; k < 4; k++)
+        vtmp[s_s[k]] += v[s];
+    }
+    for (int s = 0; s < dim4; s++)
+      v[s] = vtmp[s];
+
+
+    for (int i = M - 2; i >= 1; i--) {
+      for (int s = 0; s < dim4; s++)
+        vtmp[s] = 0.0;
+      for (int s = 0; s < dim4; s++) {
+        int sm = s & ~(1 << i), sp = s | (1 << i);
+
+        int s_s[2] = {sm, sp};
+        int sgm_l[2] = {0, 1};
+        int sgm_rd = (s >> i) & 1, sgm_rc = (s >> (i + 1)) & 1,
+            sgm_ru = (s >> (i + 2)) & 1;
+
+        for (int k = 0; k < 2; k++)
+          vtmp[s] += v[s_s[k]] * w1[sgm_l[k] ^ sgm_rc] * w2[sgm_l[k] ^ sgm_rd] *
+                     w3[sgm_l[k] ^ sgm_ru];
+      }
+      for (int s = 0; s < dim4; s++)
+        v[s] = vtmp[s];
+    }
+
+
+    for (int s = 0; s < dim; s++)
+      vtmp[s] = 0.0;
+    for (int s = 0; s < dim; s++) {
+      int smm = s << 1;
+      int spm = smm | 1, smp = smm | (dim << 1);
+      int spp = spm | smp;
+
+      int s_s[4] = {smm, smp, spm, spp};
+      int sgm_ld[4] = {0, 0, 1, 1}, sgm_lu[4] = {0, 1, 0, 1};
+      int sgm_rd = s & 1, sgm_rcd = (s >> 1) & 1, sgm_rcu = (s >> (M - 2)) & 1,
+          sgm_ru = (s >> (M - 1)) & 1;
+
+      for (int k = 0; k < 4; k++)
+        vtmp[s] += v[s_s[k]] * w1[sgm_ld[k] ^ sgm_rd] * w2[sgm_ld[k] ^ sgm_ru] *
+                   w3[sgm_ld[k] ^ sgm_rcd] * w1[sgm_lu[k] ^ sgm_ru] *
+                   w2[sgm_lu[k] ^ sgm_rcu] * w3[sgm_lu[k] ^ sgm_rd];
+    }
+    for (int s = 0; s < dim; s++)
+      v[s] = vtmp[s];
+  }
+
   // Tv -> v
   void product(double temperature, double* v, double* vtmp,
                bool transpose = false) {
     if (transpose) {
       product_D(temperature, v);
-      // product_U_T(temperature, v, vtmp);
+      product_U_T(temperature, v, vtmp);
     } else {
       product_U(temperature, v, vtmp);
       product_D(temperature, v);
