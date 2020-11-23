@@ -3,13 +3,16 @@
 int main() {
   START();
 
-  // M=13,14
-  // Tc = 0.65704177490
+  /*
+    J = (1,1,1,1)
+    M = 13,14
+    Tc = 0.65704177490
+  */
 
-  int M1 = 13;
-  int M2 = M1 + 1;
+  int M1 = 11, M2 = M1 + 1;
   double Js[4] = {1.0, 1.0, 1.0, 1.0};
   double EPS = 1e-12;
+  double l = 0.4, r = 0.67, c;
 
   Xsquare X1(Js, M1, EPS);
   double* vo_1 = alloc_dvector(X1.dim);
@@ -29,9 +32,7 @@ int main() {
   double* v1L_2 = alloc_dvector(X2.dim);
   double* v2R_2 = alloc_dvector(X2.dim);
 
-  double l = 0.4, r = 0.67, c;
   double xi1, xi2;
-
   while (r - l > EPS) {
     c = (l + r) / 2.0;
     xi1 = X1.calc_xi(c, vo_1, vn_1, vtmp1_1, vtmp2_1, v1R_1, v1L_1, v2R_1);
@@ -46,6 +47,8 @@ int main() {
   double Tc = (l + r) / 2.0;
   if (xi1 == -1.0 || xi2 == -1.0)
     Tc = -1.0;
+
+  printf("J = (%.1f, %.1f, %.1f, %.1f)\n", Js[0], Js[1], Js[2], Js[3]);
   printf("M = %d, %d\nTc = %.11f\n", M1, M2, Tc);
 
   END();
