@@ -1,8 +1,7 @@
 #include "Triangular.h"
 
 int main() {
-  chrono::system_clock::time_point start, end;
-  start = chrono::system_clock::now();
+  START();
 
   int M = 14;
   double Js[3] = {5.0, 1.0, 0.0};
@@ -29,9 +28,5 @@ int main() {
   printf("λ2 = %.12f\n", lmd2);
   printf("ξ = %.12f\n", xi);
 
-  end = chrono::system_clock::now();
-  double time = static_cast<double>(
-      chrono::duration_cast<chrono::microseconds>(end - start).count() /
-      1000000.0);
-  printf("time %lf[s]\n", time);
+  END();
 }

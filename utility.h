@@ -36,3 +36,19 @@ static inline void vzero(double* v, int dim) {
     v[i] = 0.0;
   }
 }
+
+// Measure time
+chrono::system_clock::time_point chrono_start, chrono_end;
+
+static inline void START() {
+  chrono_start = chrono::system_clock::now();
+}
+
+static inline void END() {
+  chrono_end = chrono::system_clock::now();
+  double time = static_cast<double>(
+      chrono::duration_cast<chrono::microseconds>(chrono_end - chrono_start)
+          .count() /
+      1000000.0);
+  printf("time %lf[s]\n", time);
+}
