@@ -5,10 +5,11 @@ int main() {
   chrono::system_clock::time_point start, end;
   start = chrono::system_clock::now();
 
-  int M = 14;
-  double Js[3] = {5.0, 1.0, 0.0};
-  double temperature = 0.4;
-  double EPS = 1e-12;
+  int M = 6;
+  double Js[3] = {7.0, 1.0, 1.0};
+  double EPS = 1e-15;
+
+  double temperature = 0.6;
 
   Triangular T(Js, M, EPS);
   double* vo = alloc_dvector(T.dim);
@@ -18,15 +19,10 @@ int main() {
   double* v1R = alloc_dvector(T.dim);
   double* v1L = alloc_dvector(T.dim);
 
-
   double lmd1 = T.power1_R(temperature, vo, vn, v1R, vtmp1, vtmp2);
   T.power1_L(temperature, vo, vn, v1L, vtmp1, vtmp2);
   double lmd2 = T.power2(temperature, lmd1, vo, vn, v1R, v1L, vtmp1, vtmp2);
-  double xi = T.calc_xi(temperature, vo, vn, vtmp1, vtmp2, v1R, v1L);
-
-  printf("λ1 = %.12f\n", lmd1);
-  printf("λ2 = %.12f\n", lmd2);
-  printf("ξ = %.12f\n", xi);
+  printf("%.9f, %.9f\n", lmd1, lmd2);
 
   end = chrono::system_clock::now();
   double time = static_cast<double>(

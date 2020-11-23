@@ -1,9 +1,13 @@
+#include <chrono>
 #include "Triangular.h"
 
 int main() {
-  int M1 = 12;
+  chrono::system_clock::time_point start, end;
+  start = chrono::system_clock::now();
+
+  int M1 = 9;
   int M2 = M1 + 1;
-  double Js[3] = {1.0, 10.0, 0.0};
+  double Js[3] = {3.0, 1.0, 1.0};
   double EPS = 1e-12;
 
   Triangular T1(Js, M1, EPS);
@@ -22,7 +26,7 @@ int main() {
   double* v1R_2 = alloc_dvector(T2.dim);
   double* v1L_2 = alloc_dvector(T2.dim);
 
-  double l = 0.3, r = 0.7, c;
+  double l = 0.2, r = 0.7, c;
   while (r - l > EPS) {
     c = (l + r) / 2.0;
     double xi1 = T1.calc_xi(c, vo_1, vn_1, vtmp1_1, vtmp2_1, v1R_1, v1L_1);
@@ -32,4 +36,10 @@ int main() {
   double Tc = (l + r) / 2;
   printf("M = %d, %d\nTc = %.11f\n", M1, M2, Tc);
   printf("Tc (exact) = %.11f\n", T1.exact_Tc());
+
+  end = chrono::system_clock::now();
+  double time = static_cast<double>(
+      chrono::duration_cast<chrono::microseconds>(end - start).count() /
+      1000000.0);
+  printf("time %lf[s]\n", time);
 }
