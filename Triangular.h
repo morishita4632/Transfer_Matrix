@@ -6,15 +6,17 @@ class Triangular {
   int M, dim, dimt, J_num;
   double EPS;
 
-  Triangular(double* Js, int M, double EPS) : Js(Js), M(M), EPS(EPS), J_num(3) {
+  Triangular(double* Js, int M, double EPS) : M(M), EPS(EPS), J_num(3) {
     dim = 1 << M;
     dimt = dim << 1;
 
+    this->Js = alloc_dvector(J_num);
+    vcopy(this->Js, Js, J_num);
     double sum = 0.0;
     for (int i = 0; i < J_num; i++)
-      sum += Js[i];
+      sum += this->Js[i];
     for (int i = 0; i < J_num; i++)
-      Js[i] /= sum * 2;
+      this->Js[i] /= sum * 2;
   }
 
   double exact_Tc() {

@@ -5,7 +5,7 @@ int main() {
 
   int M1 = 6;
   int M2 = M1 + 1;
-  double Js[3] = {7.0, 1.0, 1.0};
+  double Js[3] = {1.0, 1.0, 1.0};
   double EPS = 1e-12;
 
   Triangular T1(Js, M1, EPS);
@@ -51,6 +51,7 @@ int main() {
   gp = popen("gnuplot -persist", "w");
   fprintf(gp, "set xlabel \"T\"\n");
   fprintf(gp, "set ylabel \"M/xi\"\n");
+  fprintf(gp, "set yrange [0:4]\n");
   fprintf(gp, "set key left top\n");
   fprintf(gp,
           "plot "

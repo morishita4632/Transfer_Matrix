@@ -1,20 +1,22 @@
 #include "utility.h"
 
-class X_Square {
+class Xsquare {
  public:
   double* Js;
   int M, dim, dimt, J_num;
   double EPS;
 
-  X_Square(double* Js, int M, double EPS) : Js(Js), M(M), EPS(EPS), J_num(4) {
+  Xsquare(double* Js, int M, double EPS) : M(M), EPS(EPS), J_num(4) {
     dim = 1 << M;
     dimt = dim << 2;
 
+    this->Js = alloc_dvector(J_num);
+    vcopy(this->Js, Js, J_num);
     double sum = 0.0;
     for (int i = 0; i < J_num; i++)
-      sum += Js[i];
+      sum += this->Js[i];
     for (int i = 0; i < J_num; i++)
-      Js[i] /= sum * 2;
+      this->Js[i] /= sum * 2;
   }
 
   // Dv -> v
