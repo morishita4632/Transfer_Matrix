@@ -4,11 +4,11 @@ int main() {
   START();
 
   int M = 16;
-  double Js[4] = {1.0, 1.0, 0.0, 1.0};
+  double Js[4] = {1.0, 1.0, 1.0, 1.0};
   double temperature = 1.0;
   double EPS = 1e-12;
 
-  X_Square X(Js, M, EPS);
+  Xsquare X(Js, M, EPS);
   double* vo = alloc_dvector(X.dim);
   double* vn = alloc_dvector(X.dim);
   double* vtmp1 = alloc_dvector(X.dimt);

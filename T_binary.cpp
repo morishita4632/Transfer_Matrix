@@ -44,7 +44,6 @@ int main() {
 
   printf("J = (%.1f, %.1f, %.1f)\n", Js[0], Js[1], Js[2]);
   printf("M = %d, %d\nTc = %.11f\n", M1, M2, Tc);
-  // printf("Tc (exact) = %.11f\n", T1.exact_Tc());
 
   END();
 }

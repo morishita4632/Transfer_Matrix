@@ -17,7 +17,6 @@ int main() {
   double* v1L = alloc_dvector(T.dim);
   double* v2R = alloc_dvector(T.dim);
 
-
   double lmd1 = T.power1_R(temperature, vo, vn, v1R, vtmp1, vtmp2);
   T.power1_L(temperature, vo, vn, v1L, vtmp1, vtmp2);
   double lmd2 =
