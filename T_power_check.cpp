@@ -1,4 +1,3 @@
-#include <chrono>
 #include "Triangular.h"
 
 int main() {
@@ -18,10 +17,12 @@ int main() {
   double* vtmp2 = alloc_dvector(T.dim2);
   double* v1R = alloc_dvector(T.dim);
   double* v1L = alloc_dvector(T.dim);
+  double* v2R = alloc_dvector(T.dim);
 
   double lmd1 = T.power1_R(temperature, vo, vn, v1R, vtmp1, vtmp2);
   T.power1_L(temperature, vo, vn, v1L, vtmp1, vtmp2);
-  double lmd2 = T.power2(temperature, lmd1, vo, vn, v1R, v1L, vtmp1, vtmp2);
+  double lmd2 =
+      T.power2(temperature, lmd1, vo, vn, v1R, v1L, vtmp1, vtmp2, v2R);
   printf("%.9f, %.9f\n", lmd1, lmd2);
 
   end = chrono::system_clock::now();

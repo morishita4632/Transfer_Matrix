@@ -3,6 +3,7 @@
     "iostream": "cpp",
     "bitset": "cpp",
     "chrono": "cpp",
-    "set": "cpp"
+    "set": "cpp",
+    "ostream": "cpp"
   }
 }

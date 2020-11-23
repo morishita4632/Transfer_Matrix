@@ -1,21 +1,4 @@
-#include <math.h>
-#include <iostream>
-using namespace std;
-
-/* allocate vector of double */
-static inline double* alloc_dvector(int n) {
-  double* vec;
-  vec = (double*)calloc(n, sizeof(double));
-  if (vec == NULL) {
-    fprintf(stderr, "Error: allocation failed in alloc_dvector\n");
-    exit(1);
-  }
-  return vec;
-}
-
-double rand01() {
-  return (double)rand() / (double)RAND_MAX;
-}
+#include "utility.h"
 
 class Triangular {
  public:
@@ -69,41 +52,35 @@ class Triangular {
     double w2[2] = {1.0, exp(-2.0 * Js[2] / temperature)};
 
     // U1
-    for (int s = 0; s < dim2; s++)
-      vtmp[s] = 0.0;
+    vzero(vtmp, dim2);
     for (int s = 0; s < dim; s++) {
       int sm = s << 1, sp = (s << 1) | 1;
       int sigma_d = s & 1, sigma_u = (s >> (M - 1)) & 1;
       vtmp[sp] += v[s] * w1[1 ^ sigma_d] * w2[1 ^ sigma_u];
       vtmp[sm] += v[s] * w1[0 ^ sigma_d] * w2[0 ^ sigma_u];
     }
-    for (int s = 0; s < dim2; s++)
-      v[s] = vtmp[s];
+    vcopy(v, vtmp, dim2);
 
     // U2 ~ UM
     for (int i = 1; i < M; i++) {
-      for (int s = 0; s < dim2; s++)
-        vtmp[s] = 0.0;
+      vzero(vtmp, dim2);
       for (int s = 0; s < dim2; s++) {
         int sm = s & ~(1 << i), sp = s | (1 << i);
         int sigma_d = (s >> i) & 1, sigma_u = (s >> (i + 1)) & 1;
         vtmp[sp] += v[s] * w1[1 ^ sigma_u] * w2[1 ^ sigma_d];
         vtmp[sm] += v[s] * w1[0 ^ sigma_u] * w2[0 ^ sigma_d];
       }
-      for (int s = 0; s < dim2; s++)
-        v[s] = vtmp[s];
+      vcopy(v, vtmp, dim2);
     }
 
     // U(M+1)
-    for (int s = 0; s < dim; s++)
-      vtmp[s] = 0.0;
+    vzero(vtmp, dim);
     for (int s = 0; s < dim; s++) {
       int sm = s, sp = s | dim;
       vtmp[s] += v[sm];
       vtmp[s] += v[sp];
     }
-    for (int s = 0; s < dim; s++)
-      v[s] = vtmp[s];
+    vcopy(v, vtmp, dim);
   }
 
   // U^T v -> v
@@ -111,39 +88,34 @@ class Triangular {
     double w1[2] = {1.0, exp(-2.0 * Js[1] / temperature)};
     double w2[2] = {1.0, exp(-2.0 * Js[2] / temperature)};
 
-    for (int s = 0; s < dim2; s++)
-      vtmp[s] = 0.0;
+    vzero(vtmp, dim2);
     for (int s = 0; s < dim; s++) {
       int sm = s, sp = s | dim;
       vtmp[sm] += v[s];
       vtmp[sp] += v[s];
     }
-    for (int s = 0; s < dim2; s++)
-      v[s] = vtmp[s];
+    vcopy(v, vtmp, dim2);
+
 
     for (int i = M - 1; i >= 1; i--) {
-      for (int s = 0; s < dim2; s++)
-        vtmp[s] = 0.0;
+      vzero(vtmp, dim2);
       for (int s = 0; s < dim2; s++) {
         int sm = s & ~(1 << i), sp = s | (1 << i);
         int sigma_d = (s >> i) & 1, sigma_u = (s >> (i + 1)) & 1;
         vtmp[s] += v[sp] * w1[1 ^ sigma_u] * w2[1 ^ sigma_d];
         vtmp[s] += v[sm] * w1[0 ^ sigma_u] * w2[0 ^ sigma_d];
       }
-      for (int s = 0; s < dim2; s++)
-        v[s] = vtmp[s];
+      vcopy(v, vtmp, dim2);
     }
 
-    for (int s = 0; s < dim; s++)
-      vtmp[s] = 0.0;
+    vzero(vtmp, dim);
     for (int s = 0; s < dim; s++) {
       int sm = s << 1, sp = (s << 1) | 1;
       int sigma_d = s & 1, sigma_u = (s >> (M - 1)) & 1;
       vtmp[s] += v[sp] * w1[1 ^ sigma_d] * w2[1 ^ sigma_u];
       vtmp[s] += v[sm] * w1[0 ^ sigma_d] * w2[0 ^ sigma_u];
     }
-    for (int s = 0; s < dim; s++)
-      v[s] = vtmp[s];
+    vcopy(v, vtmp, dim);
   }
 
   // Tv -> v
@@ -166,24 +138,18 @@ class Triangular {
     double lmd_o = 0.0, lmd_n = 0.0;
     do {
       lmd_o = lmd_n;
-      for (int s = 0; s < dim; s++)
-        vtmp1[s] = vo[s];
+      vcopy(vtmp1, vo, dim);
       product(temperature, vtmp1, vtmp2);
-      for (int s = 0; s < dim; s++)
-        vn[s] = vtmp1[s];
+      vcopy(vn, vtmp1, dim);
 
-      double numer = 0.0, denom = 0.0;
-      for (int s = 0; s < dim; s++) {
-        numer += vn[s] * vn[s];
-        denom += vn[s] * vo[s];
-      }
+      double numer = dot(vn, vn, dim), denom = dot(vn, vo, dim);
       lmd_n = numer / denom;
+
       for (int s = 0; s < dim; s++)
         vo[s] = vn[s] / sqrt(numer);
     } while (abs(lmd_n - lmd_o) > EPS);
 
-    for (int s = 0; s < dim; s++)
-      v1R[s] = vo[s];
+    vcopy(v1R, vo, dim);
     return lmd_n;
   }
 
@@ -195,72 +161,61 @@ class Triangular {
     double lmd_o = 0.0, lmd_n = 0.0;
     do {
       lmd_o = lmd_n;
-      for (int s = 0; s < dim; s++)
-        vtmp1[s] = vo[s];
+      vcopy(vtmp1, vo, dim);
       product(temperature, vtmp1, vtmp2, true);
-      for (int s = 0; s < dim; s++)
-        vn[s] = vtmp1[s];
+      vcopy(vn, vtmp1, dim);
 
-      double numer = 0.0, denom = 0.0;
-      for (int s = 0; s < dim; s++) {
-        numer += vn[s] * vn[s];
-        denom += vn[s] * vo[s];
-      }
+      double numer = dot(vn, vn, dim), denom = dot(vn, vo, dim);
       lmd_n = numer / denom;
+
       for (int s = 0; s < dim; s++)
         vo[s] = vn[s] / sqrt(numer);
     } while (abs(lmd_n - lmd_o) > EPS);
 
-    for (int s = 0; s < dim; s++)
-      v1L[s] = vo[s];
+    vcopy(v1L, vo, dim);
   }
 
   // λ・vR・vL -> vtmp
   void decrease_term(double lmd1, const double* v1R, const double* v1L,
                      const double* v, double* vtmp) {
-    double v1L_inner_v = 0.0;
-    for (int s = 0; s < dim; s++)
-      v1L_inner_v += v1L[s] * v[s];
+    double v1L_inner_v = dot(v1L, v, dim);
     for (int s = 0; s < dim; s++)
       vtmp[s] = lmd1 * v1L_inner_v * v1R[s];
   }
 
-  // return λ2
+  // return λ2, fill v2R
   double power2(double temperature, double lmd1, double* vo, double* vn,
-                const double* v1R, const double* v1L, double* vtmp1,
-                double* vtmp2) {
+                const double* v1R, const double* v1L, double* v2R,
+                double* vtmp1, double* vtmp2) {
     for (int s = 0; s < dim; s++)
       vo[s] = rand01();
     double lmd_o = 0.0, lmd_n = 0.0;
     do {
       lmd_o = lmd_n;
-      for (int s = 0; s < dim; s++)
-        vtmp1[s] = vo[s];
+      vcopy(vtmp1, vo, dim);
       product(temperature, vtmp1, vtmp2);
-      for (int s = 0; s < dim; s++)
-        vn[s] = vtmp1[s];
+      vcopy(vn, vtmp1, dim);
       decrease_term(lmd1, v1R, v1L, vo, vtmp1);
       for (int s = 0; s < dim; s++)
         vn[s] -= vtmp1[s];
 
-      double numer = 0.0, denom = 0.0;
-      for (int s = 0; s < dim; s++) {
-        numer += vn[s] * vn[s];
-        denom += vn[s] * vo[s];
-      }
+      double numer = dot(vn, vn, dim), denom = dot(vn, vo, dim);
       lmd_n = numer / denom;
+
       for (int s = 0; s < dim; s++)
         vo[s] = vn[s] / sqrt(numer);
     } while (abs(lmd_n - lmd_o) > EPS);
 
+    vcopy(v2R, vo, dim);
     return lmd_n;
   }
 
   double calc_xi(double temperature, double* vo, double* vn, double* vtmp1,
-                 double* vtmp2, double* v1R, double* v1L) {
+                 double* vtmp2, double* v1R, double* v1L, double* v2R) {
     double lmd1 = power1_R(temperature, vo, vn, v1R, vtmp1, vtmp2);
     power1_L(temperature, vo, vn, v1L, vtmp1, vtmp2);
-    double lmd2 = power2(temperature, lmd1, vo, vn, v1R, v1L, vtmp1, vtmp2);
+    double lmd2 =
+        power2(temperature, lmd1, vo, vn, v1R, v1L, v2R, vtmp1, vtmp2);
     return 1.0 / abs(log(lmd2 / lmd1));
   }
 };

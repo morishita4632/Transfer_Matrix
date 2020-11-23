@@ -1,13 +1,12 @@
-#include <chrono>
 #include "Triangular.h"
 
 int main() {
   chrono::system_clock::time_point start, end;
   start = chrono::system_clock::now();
 
-  int M1 = 12;
+  int M1 = 6;
   int M2 = M1 + 1;
-  double Js[3] = {3.0, 1.0, 1.0};
+  double Js[3] = {7.0, 1.0, 1.0};
   double EPS = 1e-12;
 
   Triangular T1(Js, M1, EPS);
@@ -17,6 +16,7 @@ int main() {
   double* vtmp2_1 = alloc_dvector(T1.dim2);
   double* v1R_1 = alloc_dvector(T1.dim);
   double* v1L_1 = alloc_dvector(T1.dim);
+  double* v2R_1 = alloc_dvector(T1.dim);
 
   printf("%.4f\n", T1.exact_Tc());
 
@@ -27,17 +27,20 @@ int main() {
   double* vtmp2_2 = alloc_dvector(T2.dim2);
   double* v1R_2 = alloc_dvector(T2.dim);
   double* v1L_2 = alloc_dvector(T2.dim);
+  double* v2R_2 = alloc_dvector(T2.dim);
 
   int N = 20;
-  double Tmin = 0.5, Tmax = 0.65;
+  double Tmin = 0.4, Tmax = 0.6;
   double dT = (Tmax - Tmin) / N;
   double* x = alloc_dvector(N + 1);
   double* y1 = alloc_dvector(N + 1);
   double* y2 = alloc_dvector(N + 1);
   for (int i = 0; i <= N; i++) {
     x[i] = Tmin + dT * i;
-    double xi_1 = T1.calc_xi(x[i], vo_1, vn_1, vtmp1_1, vtmp2_1, v1R_1, v1L_1);
-    double xi_2 = T2.calc_xi(x[i], vo_2, vn_2, vtmp1_2, vtmp2_2, v1R_2, v1L_2);
+    double xi_1 =
+        T1.calc_xi(x[i], vo_1, vn_1, vtmp1_1, vtmp2_1, v1R_1, v1L_1, v2R_1);
+    double xi_2 =
+        T2.calc_xi(x[i], vo_2, vn_2, vtmp1_2, vtmp2_2, v1R_2, v1L_2, v2R_2);
     y1[i] = M1 / xi_1;
     y2[i] = M2 / xi_2;
   }
