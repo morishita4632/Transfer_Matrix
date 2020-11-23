@@ -210,12 +210,15 @@ class Triangular {
     return lmd_n;
   }
 
+  // Return xi. If (v2R, v1L)!=0, return -1.0;
   double calc_xi(double temperature, double* vo, double* vn, double* vtmp1,
                  double* vtmp2, double* v1R, double* v1L, double* v2R) {
     double lmd1 = power1_R(temperature, vo, vn, v1R, vtmp1, vtmp2);
     power1_L(temperature, vo, vn, v1L, vtmp1, vtmp2);
     double lmd2 =
         power2(temperature, lmd1, vo, vn, v1R, v1L, v2R, vtmp1, vtmp2);
-    return 1.0 / abs(log(lmd2 / lmd1));
+    bool orthogonal = dot(v1L, v2R, dim) < 1e-5;
+    double xi = 1.0 / abs(log(lmd2 / lmd1));
+    return orthogonal ? xi : -1.0;
   }
 };
