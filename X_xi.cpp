@@ -11,8 +11,8 @@ int main() {
   X_Square X(Js, M, EPS);
   double* vo = alloc_dvector(X.dim);
   double* vn = alloc_dvector(X.dim);
-  double* vtmp1 = alloc_dvector(X.dim4);
-  double* vtmp2 = alloc_dvector(X.dim4);
+  double* vtmp1 = alloc_dvector(X.dimt);
+  double* vtmp2 = alloc_dvector(X.dimt);
   double* v1R = alloc_dvector(X.dim);
   double* v1L = alloc_dvector(X.dim);
   double* v2R = alloc_dvector(X.dim);

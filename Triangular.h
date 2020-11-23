@@ -3,12 +3,12 @@
 class Triangular {
  public:
   double* Js;
-  int M, dim, dim2, J_num;
+  int M, dim, dimt, J_num;
   double EPS;
 
   Triangular(double* Js, int M, double EPS) : Js(Js), M(M), EPS(EPS), J_num(3) {
     dim = 1 << M;
-    dim2 = dim << 1;
+    dimt = dim << 1;
 
     double sum = 0.0;
     for (int i = 0; i < J_num; i++)
@@ -52,25 +52,25 @@ class Triangular {
     double w2[2] = {1.0, exp(-2.0 * Js[2] / temperature)};
 
     // U1
-    vzero(vtmp, dim2);
+    vzero(vtmp, dimt);
     for (int s = 0; s < dim; s++) {
       int sm = s << 1, sp = (s << 1) | 1;
       int sigma_d = s & 1, sigma_u = (s >> (M - 1)) & 1;
       vtmp[sp] += v[s] * w1[1 ^ sigma_d] * w2[1 ^ sigma_u];
       vtmp[sm] += v[s] * w1[0 ^ sigma_d] * w2[0 ^ sigma_u];
     }
-    vcopy(v, vtmp, dim2);
+    vcopy(v, vtmp, dimt);
 
     // U2 ~ UM
     for (int i = 1; i < M; i++) {
-      vzero(vtmp, dim2);
-      for (int s = 0; s < dim2; s++) {
+      vzero(vtmp, dimt);
+      for (int s = 0; s < dimt; s++) {
         int sm = s & ~(1 << i), sp = s | (1 << i);
         int sigma_d = (s >> i) & 1, sigma_u = (s >> (i + 1)) & 1;
         vtmp[sp] += v[s] * w1[1 ^ sigma_u] * w2[1 ^ sigma_d];
         vtmp[sm] += v[s] * w1[0 ^ sigma_u] * w2[0 ^ sigma_d];
       }
-      vcopy(v, vtmp, dim2);
+      vcopy(v, vtmp, dimt);
     }
 
     // U(M+1)
@@ -88,24 +88,24 @@ class Triangular {
     double w1[2] = {1.0, exp(-2.0 * Js[1] / temperature)};
     double w2[2] = {1.0, exp(-2.0 * Js[2] / temperature)};
 
-    vzero(vtmp, dim2);
+    vzero(vtmp, dimt);
     for (int s = 0; s < dim; s++) {
       int sm = s, sp = s | dim;
       vtmp[sm] += v[s];
       vtmp[sp] += v[s];
     }
-    vcopy(v, vtmp, dim2);
+    vcopy(v, vtmp, dimt);
 
 
     for (int i = M - 1; i >= 1; i--) {
-      vzero(vtmp, dim2);
-      for (int s = 0; s < dim2; s++) {
+      vzero(vtmp, dimt);
+      for (int s = 0; s < dimt; s++) {
         int sm = s & ~(1 << i), sp = s | (1 << i);
         int sigma_d = (s >> i) & 1, sigma_u = (s >> (i + 1)) & 1;
         vtmp[s] += v[sp] * w1[1 ^ sigma_u] * w2[1 ^ sigma_d];
         vtmp[s] += v[sm] * w1[0 ^ sigma_u] * w2[0 ^ sigma_d];
       }
-      vcopy(v, vtmp, dim2);
+      vcopy(v, vtmp, dimt);
     }
 
     vzero(vtmp, dim);

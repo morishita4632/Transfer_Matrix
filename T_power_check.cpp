@@ -12,8 +12,8 @@ int main() {
   Triangular T(Js, M, EPS);
   double* vo = alloc_dvector(T.dim);
   double* vn = alloc_dvector(T.dim);
-  double* vtmp1 = alloc_dvector(T.dim2);
-  double* vtmp2 = alloc_dvector(T.dim2);
+  double* vtmp1 = alloc_dvector(T.dimt);
+  double* vtmp2 = alloc_dvector(T.dimt);
   double* v1R = alloc_dvector(T.dim);
   double* v1L = alloc_dvector(T.dim);
   double* v2R = alloc_dvector(T.dim);

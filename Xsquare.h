@@ -3,12 +3,12 @@
 class X_Square {
  public:
   double* Js;
-  int M, dim, dim4, J_num;
+  int M, dim, dimt, J_num;
   double EPS;
 
   X_Square(double* Js, int M, double EPS) : Js(Js), M(M), EPS(EPS), J_num(4) {
     dim = 1 << M;
-    dim4 = dim << 2;
+    dimt = dim << 2;
 
     double sum = 0.0;
     for (int i = 0; i < J_num; i++)
@@ -37,7 +37,7 @@ class X_Square {
     double w3[2] = {1.0, exp(-2.0 * Js[3] / temperature)};
 
     // U1
-    vzero(vtmp, dim4);
+    vzero(vtmp, dimt);
     for (int s = 0; s < dim; s++) {
       int smm = s << 1;
       int spm = smm | 1, smp = smm | (dim << 1);
@@ -53,12 +53,12 @@ class X_Square {
                         w3[sgm_ld[k] ^ sgm_rcd] * w1[sgm_lu[k] ^ sgm_ru] *
                         w2[sgm_lu[k] ^ sgm_rcu] * w3[sgm_lu[k] ^ sgm_rd];
     }
-    vcopy(v, vtmp, dim4);
+    vcopy(v, vtmp, dimt);
 
     // U2 ~ U(M-1)
     for (int i = 1; i < M - 1; i++) {
-      vzero(vtmp, dim4);
-      for (int s = 0; s < dim4; s++) {
+      vzero(vtmp, dimt);
+      for (int s = 0; s < dimt; s++) {
         int sm = s & ~(1 << i), sp = s | (1 << i);
 
         int s_s[2] = {sm, sp};
@@ -70,7 +70,7 @@ class X_Square {
           vtmp[s_s[k]] += v[s] * w1[sgm_l[k] ^ sgm_rc] * w2[sgm_l[k] ^ sgm_rd] *
                           w3[sgm_l[k] ^ sgm_ru];
       }
-      vcopy(v, vtmp, dim4);
+      vcopy(v, vtmp, dimt);
     }
 
     // UM
@@ -98,7 +98,7 @@ class X_Square {
     double w2[2] = {1.0, exp(-2.0 * Js[2] / temperature)};
     double w3[2] = {1.0, exp(-2.0 * Js[3] / temperature)};
 
-    vzero(vtmp, dim4);
+    vzero(vtmp, dimt);
     for (int s = 0; s < dim; s++) {
       int mask_lu = dim >> 1;
 
@@ -112,12 +112,12 @@ class X_Square {
       for (int k = 0; k < 4; k++)
         vtmp[s_s[k]] += v[s];
     }
-    vcopy(v, vtmp, dim4);
+    vcopy(v, vtmp, dimt);
 
 
     for (int i = M - 2; i >= 1; i--) {
-      vzero(vtmp, dim4);
-      for (int s = 0; s < dim4; s++) {
+      vzero(vtmp, dimt);
+      for (int s = 0; s < dimt; s++) {
         int sm = s & ~(1 << i), sp = s | (1 << i);
 
         int s_s[2] = {sm, sp};
@@ -129,7 +129,7 @@ class X_Square {
           vtmp[s] += v[s_s[k]] * w1[sgm_l[k] ^ sgm_rc] * w2[sgm_l[k] ^ sgm_rd] *
                      w3[sgm_l[k] ^ sgm_ru];
       }
-      vcopy(v, vtmp, dim4);
+      vcopy(v, vtmp, dimt);
     }
 
     vzero(vtmp, dim);

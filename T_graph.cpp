@@ -11,8 +11,8 @@ int main() {
   Triangular T1(Js, M1, EPS);
   double* vo_1 = alloc_dvector(T1.dim);
   double* vn_1 = alloc_dvector(T1.dim);
-  double* vtmp1_1 = alloc_dvector(T1.dim2);
-  double* vtmp2_1 = alloc_dvector(T1.dim2);
+  double* vtmp1_1 = alloc_dvector(T1.dimt);
+  double* vtmp2_1 = alloc_dvector(T1.dimt);
   double* v1R_1 = alloc_dvector(T1.dim);
   double* v1L_1 = alloc_dvector(T1.dim);
   double* v2R_1 = alloc_dvector(T1.dim);
@@ -22,8 +22,8 @@ int main() {
   Triangular T2(Js, M2, EPS);
   double* vo_2 = alloc_dvector(T2.dim);
   double* vn_2 = alloc_dvector(T2.dim);
-  double* vtmp1_2 = alloc_dvector(T2.dim2);
-  double* vtmp2_2 = alloc_dvector(T2.dim2);
+  double* vtmp1_2 = alloc_dvector(T2.dimt);
+  double* vtmp2_2 = alloc_dvector(T2.dimt);
   double* v1R_2 = alloc_dvector(T2.dim);
   double* v1L_2 = alloc_dvector(T2.dim);
   double* v2R_2 = alloc_dvector(T2.dim);
