@@ -3,7 +3,7 @@
 #SBATCH -N 1
 #SBATCH -n 1
 #SBATCH -c 1
-#SBATCH -o out/slurm-%j.out
+#SBATCH -o out/110/slurm-%j.out
 # #SBATCH --mail-type=END
 # #SBATCH --mail-user=moritomo_924@yahoo.co.jp
 srun ./a.out
