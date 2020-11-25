@@ -61,6 +61,6 @@ static inline void END()
       chrono::duration_cast<chrono::microseconds>(chrono_end - chrono_start)
           .count() /
       1000000.0);
-  printf("time %lf[s]\n", time);
-  printf("time %lf[m]\n", time / 60.0);
+  printf("time %.2lf[s]\n", time);
+  printf("time %.2lf[m]\n", time / 60.0);
 }

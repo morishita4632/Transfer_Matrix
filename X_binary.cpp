@@ -1,6 +1,7 @@
 #include "Xsquare.h"
 
-int main() {
+int main()
+{
   START();
 
   /*
@@ -15,25 +16,26 @@ int main() {
   double l = 0.4, r = 0.67, c;
 
   Xsquare X1(Js, M1, EPS);
-  double* vo_1 = alloc_dvector(X1.dim);
-  double* vn_1 = alloc_dvector(X1.dim);
-  double* vtmp1_1 = alloc_dvector(X1.dimt);
-  double* vtmp2_1 = alloc_dvector(X1.dimt);
-  double* v1R_1 = alloc_dvector(X1.dim);
-  double* v1L_1 = alloc_dvector(X1.dim);
-  double* v2R_1 = alloc_dvector(X1.dim);
+  double *vo_1 = alloc_dvector(X1.dim);
+  double *vn_1 = alloc_dvector(X1.dim);
+  double *vtmp1_1 = alloc_dvector(X1.dimt);
+  double *vtmp2_1 = alloc_dvector(X1.dimt);
+  double *v1R_1 = alloc_dvector(X1.dim);
+  double *v1L_1 = alloc_dvector(X1.dim);
+  double *v2R_1 = alloc_dvector(X1.dim);
 
   Xsquare X2(Js, M2, EPS);
-  double* vo_2 = alloc_dvector(X2.dim);
-  double* vn_2 = alloc_dvector(X2.dim);
-  double* vtmp1_2 = alloc_dvector(X2.dimt);
-  double* vtmp2_2 = alloc_dvector(X2.dimt);
-  double* v1R_2 = alloc_dvector(X2.dim);
-  double* v1L_2 = alloc_dvector(X2.dim);
-  double* v2R_2 = alloc_dvector(X2.dim);
+  double *vo_2 = alloc_dvector(X2.dim);
+  double *vn_2 = alloc_dvector(X2.dim);
+  double *vtmp1_2 = alloc_dvector(X2.dimt);
+  double *vtmp2_2 = alloc_dvector(X2.dimt);
+  double *v1R_2 = alloc_dvector(X2.dim);
+  double *v1L_2 = alloc_dvector(X2.dim);
+  double *v2R_2 = alloc_dvector(X2.dim);
 
   double xi1, xi2;
-  while (r - l > EPS) {
+  while (r - l > EPS)
+  {
     c = (l + r) / 2.0;
     xi1 = X1.calc_xi(c, vo_1, vn_1, vtmp1_1, vtmp2_1, v1R_1, v1L_1, v2R_1);
     xi2 = X2.calc_xi(c, vo_2, vn_2, vtmp1_2, vtmp2_2, v1R_2, v1L_2, v2R_2);
@@ -49,7 +51,7 @@ int main() {
     Tc = -1.0;
 
   printf("J = (%.1f, %.1f, %.1f, %.1f)\n", Js[0], Js[1], Js[2], Js[3]);
-  printf("M = %d, %d\nTc = %.11f\n", M1, M2, Tc);
+  printf("M = %d, %d\n%.11f\n", M1, M2, Tc);
 
   END();
 }
