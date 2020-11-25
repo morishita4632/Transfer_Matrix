@@ -3,8 +3,8 @@
 int main() {
   START();
 
-  int M = 6;
-  double Js[3] = {7.0, 1.0, 1.0};
+  int M = 12;
+  double Js[3] = {1.0, 1.0, 100.0};
   double EPS = 1e-12;
 
   double temperature = 0.6;
