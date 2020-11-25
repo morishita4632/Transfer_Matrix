@@ -5,7 +5,9 @@ using namespace std;
 
 signed main() {
   int A, B;
-  cin >> A >> B;
-  int ans = 2 * B - A;
-  cout << ans << endl;
+  while (true) {
+    cin >> A >> B;
+    int ans = 2 * B - A;
+    cout << ans << endl << endl;
+  }
 }
