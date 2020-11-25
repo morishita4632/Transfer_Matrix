@@ -3,9 +3,9 @@
 int main() {
   START();
 
-  int M1 = 12;
+  int M1 = 9;
   int M2 = M1 + 1;
-  double Js[3] = {1.0, 1.0, 7.0};
+  double Js[3] = {1.0, 1.0, 3.0};
   double EPS = 1e-12;
 
   Triangular T1(Js, M1, EPS);
@@ -17,7 +17,8 @@ int main() {
   double* v1L_1 = alloc_dvector(T1.dim);
   double* v2R_1 = alloc_dvector(T1.dim);
 
-  printf("%.4f\n", T1.exact_Tc());
+  double Tc_ex = T1.exact_Tc();
+  printf("%.4f\n", Tc_ex);
 
   Triangular T2(Js, M2, EPS);
   double* vo_2 = alloc_dvector(T2.dim);
@@ -46,18 +47,23 @@ int main() {
 
   END();
 
+
+  double ymin = 0.0, ymax = 1.5;
   /* gnuplot */
   FILE* gp;
   gp = popen("gnuplot -persist", "w");
   fprintf(gp, "set xlabel \"T\"\n");
   fprintf(gp, "set ylabel \"M/xi\"\n");
-  fprintf(gp, "set yrange [-0.5:4]\n");
+  fprintf(gp, "set yrange [%f:%f]\n", ymin, ymax);
   fprintf(gp, "set key left top\n");
+  fprintf(gp, "set parametric\n");
+  fprintf(gp, "set trange [%f:%f]\n", ymin, ymax);
   fprintf(gp,
           "plot "
           "'-' title \"M = %d\", "
-          "'-' title \"M = %d\"\n",
-          M1, M2);
+          "'-' title \"M = %d\", "
+          "%f, t with lines notitle\n",
+          M1, M2, Tc_ex);
   for (int i = 0; i <= N; i++) {
     fprintf(gp, "%.10f\t%.10f\n", x[i], y1[i]);
   }
