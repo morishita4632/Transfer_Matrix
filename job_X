@@ -1,0 +1,10 @@
+#!/bin/sh
+#SBATCH -p B2fat
+# SBATCH -p B1cpu
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -c 1
+#SBATCH -o out/Xsquare/1111/slurm-%j.out
+# SBATCH --mail-type=END
+# SBATCH --mail-user=t.m.24218626.19960924.thp@docomo.ne.jp
+srun ./a.out

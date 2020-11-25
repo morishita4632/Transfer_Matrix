@@ -9,7 +9,7 @@ int main() {
     Tc = 0.65704177490
   */
 
-  int M1 = 11, M2 = M1 + 1;
+  int M1 = 4, M2 = M1 + 1;
   double Js[4] = {1.0, 1.0, 1.0, 1.0};
   double EPS = 1e-12;
   double L = 0.4, R = 0.67;
