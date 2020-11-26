@@ -3,16 +3,10 @@
 int main() {
   START();
 
-  /*
-    J = (1,1,1,1)
-    M = 13,14
-    Tc = 0.65704177490
-  */
-
   int M1 = 16, M2 = M1 + 1;
-  double Js[4] = {1.0, 1.0, 1.0, 1.0};
+  double Js[4] = {1.0, 1.0, 5.0, 5.0};
   double EPS = 1e-12;
-  double L = 0.65710367208, R = 0.65713049002;
+  double L = 0.66353783329, R = 0.66364993738;
 
   Xsquare X1(Js, M1, EPS);
   double* vo_1 = alloc_dvector(X1.dim);
