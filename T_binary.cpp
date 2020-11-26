@@ -3,10 +3,10 @@
 int main() {
   START();
 
-  int M1 = 15, M2 = M1 + 1;
-  double Js[3] = {1.0, 1.0, 500.0};
+  int M1 = 4, M2 = M1 + 1;
+  double Js[3] = {1.0, 1.0, 1.0};
   double EPS = 1e-12;
-  double L = 0.21315847972, R = 0.21316001205;
+  double L = 0.4, R = 0.62;
 
   Triangular T1(Js, M1, EPS);
   double* vo_1 = alloc_dvector(T1.dim);
