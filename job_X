@@ -4,7 +4,7 @@
 #SBATCH -N 1
 #SBATCH -n 1
 #SBATCH -c 1
-#SBATCH -o out/Xsquare/1_5_10_20/slurm-%j.out
-# SBATCH --mail-type=END
-# SBATCH --mail-user=t.m.24218626.19960924.thp@docomo.ne.jp
+#SBATCH -o out/Xsquare/1_1_1_1000/slurm-%j.out
+#SBATCH --mail-type=END
+#SBATCH --mail-user=t.m.24218626.19960924.thp@docomo.ne.jp
 srun ./a.out
