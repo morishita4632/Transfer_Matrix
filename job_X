@@ -1,6 +1,5 @@
 #!/bin/sh
 #SBATCH -p B2fat
-# SBATCH -p B1cpu
 #SBATCH -N 1
 #SBATCH -n 1
 #SBATCH -c 1

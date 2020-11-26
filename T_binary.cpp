@@ -3,10 +3,10 @@
 int main() {
   START();
 
-  int M1 = 4, M2 = M1 + 1;
-  double Js[3] = {1.0, 1.0, 7.0};
+  int M1 = 15, M2 = M1 + 1;
+  double Js[3] = {1.0, 1.0, 10.0};
   double EPS = 1e-12;
-  double L = 0.3, R = 0.6;
+  double L = 0.47830990289, R = 0.47831593079;
 
   Triangular T1(Js, M1, EPS);
   double* vo_1 = alloc_dvector(T1.dim);
@@ -49,11 +49,11 @@ int main() {
   if (Tc != -1.0) {
     // increase
     double next_L = c, next_R = 2 * c - L;
-    printf("Inc\ndouble L = %.11f, R = %.11f;\n", next_L, next_R);
+    printf("Inc\n  double L = %.11f, R = %.11f;\n", next_L, next_R);
 
     // decrease
     next_R = c, next_L = 2 * c - R;
-    printf("Dec\ndouble L = %.11f, R = %.11f;\n", next_L, next_R);
+    printf("Dec\n  double L = %.11f, R = %.11f;\n", next_L, next_R);
   }
 
   END();
