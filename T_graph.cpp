@@ -3,9 +3,9 @@
 int main() {
   START();
 
-  int M1 = 6;
+  int M1 = 9;
   int M2 = M1 + 1;
-  double Js[3] = {7.0, 1.0, 1.0};
+  double Js[3] = {1.0, 1.0, 7.0};
   double EPS = 1e-12;
 
   Triangular T1(Js, M1, EPS);
@@ -43,8 +43,7 @@ int main() {
 
   END();
 
-
-  double ymin = 0.0, ymax = 4;
+  double ymin = 0.0, ymax = 2.0;
   /* gnuplot */
   FILE* gp;
   gp = popen("gnuplot -persist", "w");
