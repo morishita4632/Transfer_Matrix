@@ -4,9 +4,9 @@ int main() {
   for (int M = 4; M <= 16; M++) {
     START();
     int M1 = M, M2 = M1 + 1;
-    double Js[4] = {1.0, 1.0, 1.0, 50.0};
+    double Js[4] = {1.0, 1.0, 1.0, 1.0};
     double EPS = 1e-12;
-    double L = 0.3, R = 0.7;
+    double L = 0.2, R = 0.7;
 
     Xsquare X1(Js, M1, EPS);
     double* vo_1 = alloc_dvector(X1.dim);
