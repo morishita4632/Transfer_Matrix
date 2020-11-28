@@ -1,10 +1,10 @@
 #include "Triangular.h"
 
 int main() {
-  for (int M = 5; M <= 16; M++) {
+  for (int M = 4; M <= 16; M++) {
     START();
     int M1 = M, M2 = M1 + 1;
-    double Js[3] = {1.0, 1.0, 1.1};
+    double Js[3] = {1.0, 1.0, 2.0};
     double EPS = 1e-12;
     double L = 0.3, R = 0.62;
 
