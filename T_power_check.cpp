@@ -3,10 +3,9 @@
 int main() {
   START();
 
-  int M = 12;
-  double Js[3] = {1.0, 1.0, 100.0};
+  int M = 6;
+  double Js[3] = {7.0, 1.0, 1.0};
   double EPS = 1e-12;
-
   double temperature = 0.6;
 
   Triangular T(Js, M, EPS);
@@ -18,11 +17,40 @@ int main() {
   double* v1L = alloc_dvector(T.dim);
   double* v2R = alloc_dvector(T.dim);
 
+  double lmd1 = T.power1_R(temperature, vo, vn, v1R, vtmp1, vtmp2);
+  T.power1_L(temperature, vo, vn, v1L, vtmp1, vtmp2);
+
+  // v1R, v1L は正しく固有ベクトルになっている
+
+  double lmd2 =
+      T.power2(temperature, lmd1, vo, vn, v1R, v1L, v2R, vtmp1, vtmp2);
+
+  double* V = alloc_dvector(T.dim);
+  vcopy(V, v2R, T.dim);
+  vcopy(vtmp1, v2R, T.dim);
+  T.product(temperature, vtmp1, vtmp2);
+  vcopy(vn, vtmp1, T.dim);
+  T.decrease_term(lmd1, v1R, v1L, vo, vtmp1);
+  for (int s = 0; s < T.dim; s++)
+    vn[s] -= vtmp1[s];
+
+  for (int i = 0; i < T.dim; i++) {
+    cout << vn[i] / V[i] << endl;
+  }
+  return 0;
+
+  // v2Rは減次した行列の固有ベクトルになっている
+
+
   double xi = T.calc_xi(temperature, vo, vn, vtmp1, vtmp2, v1R, v1L, v2R);
+
   if (xi == -1.0)
     printf("NOT ORTHOGONAL!\n");
   else
-    printf("xi = %.9f\n", xi);
+    printf("ξ = %.12f\n", xi);
+
+  printf("λ1 = %.12f\n", lmd1);
+  printf("λ2 = %.12f\n", lmd2);
 
   END();
 }
