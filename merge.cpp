@@ -7,8 +7,8 @@ using namespace boost;
 
 
 int main() {
-  string lattice = "Triangular";
-  string Js = "1_5_0";
+  string lattice = "Xsquare";
+  string Js = "1_10_50_100";
   int id_min = 90000, id_max = 100000;
 
   string dir = (format("./out/%s/%s/") % lattice % Js).str();
