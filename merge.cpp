@@ -8,7 +8,7 @@ using namespace boost;
 
 int main() {
   string lattice = "Xsquare";
-  string Js = "1_10_50_100";
+  string Js = "1_1_1_1";
   int id_min = 90000, id_max = 100000;
 
   string dir = (format("./out/%s/%s/") % lattice % Js).str();
@@ -25,7 +25,7 @@ int main() {
     int line = 0;
     while (getline(ifs, str)) {
       line++;
-      if (line % 9 == 3)
+      if (line % 8 == 3)
         ofs << str << endl;
     }
   }
