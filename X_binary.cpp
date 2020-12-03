@@ -35,7 +35,7 @@ int main() {
 
     double Tc = (l + r) / 2.0;
     printf("J = (%.1f, %.1f, %.1f, %.1f)\n", Js[0], Js[1], Js[2], Js[3]);
-    printf("M = %d, %d\n%.11f\n", M1, M2, Tc);
+    printf("M = %d, %d\n%.11f\n\n", M1, M2, Tc);
 
     // increase
     double next_L = c, next_R = 2 * c - L;
