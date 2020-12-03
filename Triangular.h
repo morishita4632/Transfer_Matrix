@@ -39,7 +39,6 @@ class Triangular {
   void product_D(double temperature, double* v) {
     double w0[2] = {1.0, exp(-2.0 * Js[0] / temperature)};
     for (int s = 0; s < dim; s++) {
-#pragma omp parallel for
       for (int i = 0; i < M; i++) {
         int j = (i + 1) % M;
         int sigma_i = (s >> i) & 1;
@@ -56,7 +55,6 @@ class Triangular {
 
     // U1
     vzero(vtmp, dimt);
-#pragma omp parallel for
     for (int s = 0; s < dim; s++) {
       int sm = s << 1, sp = (s << 1) | 1;
       int sigma_d = s & 1, sigma_u = (s >> (M - 1)) & 1;
@@ -68,7 +66,6 @@ class Triangular {
     // U2 ~ UM
     for (int i = 1; i < M; i++) {
       vzero(vtmp, dimt);
-#pragma omp parallel for
       for (int s = 0; s < dimt; s++) {
         int sm = s & ~(1 << i), sp = s | (1 << i);
         int sigma_d = (s >> i) & 1, sigma_u = (s >> (i + 1)) & 1;
@@ -80,7 +77,6 @@ class Triangular {
 
     // U(M+1)
     vzero(vtmp, dim);
-#pragma omp parallel for
     for (int s = 0; s < dim; s++) {
       int sm = s, sp = s | dim;
       vtmp[s] += v[sm];
@@ -98,7 +94,6 @@ class Triangular {
   // return λ1, fill v1
   double power1(double temperature, double* vo, double* vn, double* v1,
                 double* vtmp1, double* vtmp2) {
-#pragma omp parallel for
     for (int s = 0; s < dim; s++)
       vo[s] = rand01();
     double lmd_o = 0.0, lmd_n = 0.0;
@@ -123,7 +118,6 @@ class Triangular {
   void decrease_term(double lmd1, const double* v1, const double* v,
                      double* vtmp) {
     double v1_inner_v = dot(v1, v, dim);
-#pragma omp parallel for
     for (int s = 0; s < dim; s++)
       vtmp[s] = lmd1 * v1_inner_v * v1[s];
   }
@@ -131,7 +125,6 @@ class Triangular {
   // return λ2, fill v2
   double power2(double temperature, double lmd1, double* vo, double* vn,
                 const double* v1, double* v2, double* vtmp1, double* vtmp2) {
-#pragma omp parallel for
     for (int s = 0; s < dim; s++)
       vo[s] = rand01();
     double lmd_o = 0.0, lmd_n = 0.0;

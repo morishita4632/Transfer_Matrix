@@ -19,7 +19,6 @@ static inline double rand01() {
 
 static inline double dot(const double* v1, const double* v2, int dim) {
   double res = 0.0;
-#pragma omp parallel for
   for (int i = 0; i < dim; i++) {
     res += v1[i] * v2[i];
   }
@@ -27,14 +26,12 @@ static inline double dot(const double* v1, const double* v2, int dim) {
 }
 
 static inline void vcopy(double* v1, const double* v2, int dim) {
-#pragma omp parallel for
   for (int i = 0; i < dim; i++) {
     v1[i] = v2[i];
   }
 }
 
 static inline void vzero(double* v, int dim) {
-#pragma omp parallel for
   for (int i = 0; i < dim; i++) {
     v[i] = 0.0;
   }
