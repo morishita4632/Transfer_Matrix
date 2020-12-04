@@ -25,7 +25,7 @@ int main() {
     int line = 0;
     while (getline(ifs, str)) {
       line++;
-      if (line % 9 == 3)
+      if (line % 4 == 3)
         ofs << str << endl;
     }
   }

@@ -39,13 +39,13 @@ int main() {
     printf("J = (%.1f, %.1f, %.1f, %.1f)\n", Js[0], Js[1], Js[2], Js[3]);
     printf("M = %d, %d\n%.11f\n\n", M1, M2, Tc);
 
-    // increase
-    double next_L = c, next_R = 2 * c - L;
-    printf("Inc\n  double L = %.11f, R = %.11f;\n", next_L, next_R);
+    // // increase
+    // double next_L = c, next_R = 2 * c - L;
+    // printf("Inc\n  double L = %.11f, R = %.11f;\n", next_L, next_R);
 
-    // decrease
-    next_R = c, next_L = 2 * c - R;
-    printf("Dec\n  double L = %.11f, R = %.11f;\n", next_L, next_R);
-    END();
+    // // decrease
+    // next_R = c, next_L = 2 * c - R;
+    // printf("Dec\n  double L = %.11f, R = %.11f;\n", next_L, next_R);
+    // END();
   }
 }
