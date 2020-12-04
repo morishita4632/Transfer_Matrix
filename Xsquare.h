@@ -250,6 +250,9 @@ class Xsquare {
                  double* vtmp2, double* v1R, double* v1L, double* v2R) {
     double lmd1 = power1_R(temperature, vo, vn, v1R, vtmp1, vtmp2);
     power1_L(temperature, vo, vn, v1L, vtmp1, vtmp2);
+    double inner = dot(v1R, v1L, dim);
+    for (int i = 0; i < dim; i++)
+      v1L[i] /= inner;
     double lmd2 =
         power2(temperature, lmd1, vo, vn, v1R, v1L, v2R, vtmp1, vtmp2);
     bool orthogonal = dot(v1L, v2R, dim) < 1e-5;
