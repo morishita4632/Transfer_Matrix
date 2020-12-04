@@ -1,6 +1,8 @@
 #include "Triangular.h"
+#include <vector>
 
 int main() {
+  vector<vector<double>> Js_s = {{1,1,0}, {1,1,1}, {1,1,1.1}};
   for (int M = 4; M <= 16; M++) {
     START();
     int M1 = M, M2 = M1 + 1;
