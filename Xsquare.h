@@ -255,8 +255,7 @@ class Xsquare {
       v1L[i] /= inner;
     double lmd2 =
         power2(temperature, lmd1, vo, vn, v1R, v1L, v2R, vtmp1, vtmp2);
-    bool orthogonal = dot(v1L, v2R, dim) < 1e-5;
     double xi = 1.0 / abs(log(lmd2 / lmd1));
-    return orthogonal ? xi : -1.0;
+    return xi;
   }
 };
