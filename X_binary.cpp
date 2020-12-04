@@ -4,7 +4,7 @@ int main() {
   for (int M = 4; M <= 16; M++) {
     START();
     int M1 = M, M2 = M1 + 1;
-    double Js[4] = {50, 1, 1, 50};
+    double Js[4] = {2, 2, 1, 1};
     double EPS = 1e-12;
     double L = 0.2, R = 0.7;
 
