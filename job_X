@@ -6,4 +6,4 @@
 #SBATCH -o out/Xsquare/slurm-%j.out
 #SBATCH --mail-type=END
 #SBATCH --mail-user=t.m.24218626.19960924.thp@docomo.ne.jp
-srun ./a.out
+srun ./x.out
