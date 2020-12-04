@@ -10,7 +10,7 @@ int main() {
       {40, 1, 1, 1},  {50, 1, 1, 1},   {50, 1, 1, 50}};
 
   for (auto Js_vec : Js_s) {
-    for (int M = 4; M <= 5; M++) {
+    for (int M = 4; M <= 16; M++) {
       START();
       int M1 = M, M2 = M1 + 1;
       // double Js[4] = {2, 2, 1, 1};
