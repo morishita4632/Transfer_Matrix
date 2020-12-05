@@ -12,6 +12,7 @@ with open(rfile) as rf:
         if line % 52 == 1:
             Js_raw = [float(s) for s in s_line[5:-2].split(", ")]
             Js_str = '_'.join([str(int(J) if J.is_integer() else J) for J in Js_raw])
-        if line % 4 == 3:
-            with open("out/" + lattice + '/' + Js_str + '/' + Js_str + "_all.txt", mode='a') as wf:
-                wf.write(s_line)
+            print(Js_str)
+        # if line % 4 == 3:
+        #     with open("out/" + lattice + '/' + Js_str + '/' + Js_str + "_all.txt", mode='a') as wf:
+        #         wf.write(s_line)
