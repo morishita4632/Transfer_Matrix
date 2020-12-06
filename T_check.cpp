@@ -3,10 +3,10 @@
 // v2Rにはもともと0.0の成分があるのでそこを無視する必要がある
 
 int main() {
-  START();
+  START(3);
 
   int M = 6;
-  double Js[3] = {7.0, 1.0, 1.0};
+  double Js[3] = {rand01(), rand01(), rand01()};
   double EPS = 1e-12;
   double temperature = 0.6;
 
@@ -31,7 +31,7 @@ int main() {
   double mult;
   double test_eps = 1e-5;
 
-  printf("λ1 = %.12f\n", lmd1);
+  printf("lmd_1 = %.12f\n", lmd1);
   vcopy(vtmp1, v1R, T.dim);
   T.product(temperature, vtmp1, vtmp2);
   cnt = 0;
@@ -50,7 +50,7 @@ int main() {
   }
   printf("%d\n", cnt);
 
-  printf("λ2 = %.12f\n", lmd2);
+  printf("lmd_2 = %.12f\n", lmd2);
   vcopy(vtmp1, v2R, T.dim);
   T.product(temperature, vtmp1, vtmp2);
   cnt = 0;
@@ -60,12 +60,8 @@ int main() {
   }
   printf("%d\n", cnt);
 
-  printf("v1R・v1L = %.15f\n", dot(v1R, v1L, T.dim));
-  printf("v2R・v1L = %.15f\n", dot(v2R, v1L, T.dim));
-
-
-  for (int i = 0; i < T.dim; i++)
-    printf("%.12f \n", v2R[i]);
+  printf("(v1R, v1L) = %.15f\n", dot(v1R, v1L, T.dim));
+  printf("(v2R, v1L) = %.15f\n", dot(v2R, v1L, T.dim));
 
   END();
 }

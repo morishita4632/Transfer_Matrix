@@ -1,7 +1,11 @@
 #include <math.h>
 #include <chrono>
+#include <random>
 #include <iostream>
 using namespace std;
+
+chrono::system_clock::time_point chrono_start, chrono_end;
+mt19937 mt(0);
 
 static inline double* alloc_dvector(int n) {
   double* vec;
@@ -14,7 +18,7 @@ static inline double* alloc_dvector(int n) {
 }
 
 static inline double rand01() {
-  return (double)rand() / (double)RAND_MAX;
+  return (double)(mt()) / (double)(mt.max());
 }
 
 static inline double dot(const double* v1, const double* v2, int dim) {
@@ -37,10 +41,9 @@ static inline void vzero(double* v, int dim) {
   }
 }
 
-// Measure time
-chrono::system_clock::time_point chrono_start, chrono_end;
-
-static inline void START() {
+// Measure time & Random initialize
+static inline void START(int seed = 0) {
+  mt.seed(seed);
   chrono_start = chrono::system_clock::now();
 }
 
