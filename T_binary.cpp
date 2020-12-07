@@ -3,7 +3,7 @@
 
 int main() {
   vector<vector<double>> Js_s = {
-      {2,1,1},{7,1,1},{10,1,1},{2,1,0},{3,1,0},{5,1,0}
+    {1,1,1}
       };
 
   for (auto Js_vec : Js_s) {
