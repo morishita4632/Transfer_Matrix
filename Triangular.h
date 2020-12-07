@@ -222,7 +222,7 @@ class Triangular {
       v1L[i] /= inner;
     double lmd2 =
         power2(temperature, lmd1, vo, vn, v1R, v1L, v2R, vtmp1, vtmp2);
-    double xi = 1.0 / abs(log(lmd2 / lmd1));
+    double xi = 1.0 / log(lmd1 / lmd2);
     return xi;
   }
 };
