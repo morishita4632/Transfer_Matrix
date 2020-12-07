@@ -2,7 +2,8 @@ import glob, os
 lattice = "Triangular"
 id = "100984"
 
-rfile = "out/" + lattice + '/' + "slurm-" + id + ".out"
+# rfile = "out/" + lattice + '/' + "slurm-" + id + ".out"
+rfile = "out/Triangular/slurm_smaller-epsilon-101653.out" 
 line = 0
 Js_str = "hoge"
 
