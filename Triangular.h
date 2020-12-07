@@ -225,4 +225,37 @@ class Triangular {
     double xi = 1.0 / log(lmd1 / lmd2);
     return xi;
   }
+
+  // For confirmation
+  double fill_T(double temperature, double** mat, double* vtmp1, double* vtmp2){
+    for(int i = 0; i < dim; i++){
+      vzero(vtmp1, dimt);
+      vtmp1[i]=1.0;
+      product(temperature, vtmp1, vtmp2);
+      vcopy(mat[i], vtmp1, dim);
+    }
+  }
+
+  double fill_T_bruteforce(double temperature, double** mat){
+    double w[3][2] = {
+      {1.0, exp(-2.0 * Js[0] / temperature)},
+      {1.0, exp(-2.0 * Js[1] / temperature)},
+      {1.0, exp(-2.0 * Js[2] / temperature)}
+    };
+    for(int s1; s1 < dim; s1++){
+      for(int s2; s2 < dim; s2++){
+        for(int i=0; i < M; i++){
+          int j = (i-1) % M;
+          int sgm = (s1>>i)&1;
+          int sgm_s[3] = {(s1>>j)&1, (s2>>i)&1, (s2>>j)&1};
+
+          double temp = 1.0;
+          for(int k = 0; k<3; k++){
+            temp *= w[k][sgm^sgm_s[k]];
+          }
+          mat[s1][s2] = temp;
+        }
+      }
+    }
+  }
 };
