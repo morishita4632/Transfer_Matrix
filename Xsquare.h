@@ -258,4 +258,39 @@ class Xsquare {
     double xi = 1.0 / log(lmd1 / lmd2);
     return xi;
   }
+
+  // For confirmation
+  void fill_T(double temperature, double** mat, double* vtmp1, double* vtmp2) {
+    for (int j = 0; j < dim; j++) {
+      vzero(vtmp1, dimt);
+      vtmp1[j] = 1.0;
+      product(temperature, vtmp1, vtmp2);
+      for (int i = 0; i < dim; i++)
+        mat[i][j] = vtmp1[i];
+    }
+  }
+
+  void fill_T_bruteforce(double temperature, double** mat) {
+    double w[4][2] = {{1.0, exp(-2.0 * Js[0] / temperature)},
+                      {1.0, exp(-2.0 * Js[1] / temperature)},
+                      {1.0, exp(-2.0 * Js[2] / temperature)},
+                      {1.0, exp(-2.0 * Js[3] / temperature)}};
+    for (int s1 = 0; s1 < dim; s1++) {
+      for (int s2 = 0; s2 < dim; s2++) {
+        double temp = 1.0;
+        for (int i = 0; i < M; i++) {
+          int j = (i + M - 1) % M;
+          int jj = (i + 1) % M;
+          int sgm = (s1 >> i) & 1;
+          int sgm_s[4] = {(s1 >> j) & 1, (s2 >> i) & 1, (s2 >> j) & 1,
+                          (s2 >> jj) & 1};
+
+          for (int k = 0; k < 4; k++) {
+            temp *= w[k][sgm ^ sgm_s[k]];
+          }
+        }
+        mat[s1][s2] = temp;
+      }
+    }
+  }
 };

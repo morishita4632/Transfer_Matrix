@@ -232,9 +232,8 @@ class Triangular {
       vzero(vtmp1, dimt);
       vtmp1[j] = 1.0;
       product(temperature, vtmp1, vtmp2);
-      for (int i = 0; i < dim; i++) {
+      for (int i = 0; i < dim; i++)
         mat[i][j] = vtmp1[i];
-      }
     }
   }
 
