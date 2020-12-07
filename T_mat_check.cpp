@@ -13,7 +13,7 @@ void print_mat(double** mat, int size){
 int main() {
   START(0);
 
-  int M = 4;
+  int M = 3;
   double Js[3] = {rand01(), rand01(), rand01()};
   double EPS = 1e-12;
   double temperature = 0.6;
@@ -23,8 +23,8 @@ int main() {
   double** mat_calc = alloc_dmatrix(T.dim, T.dim);
   double* vtmp1 = alloc_dvector(T.dimt);
   double* vtmp2 = alloc_dvector(T.dimt);
-  T.fill_T(temperature, mat_exact, vtmp1, vtmp2);
-  T.fill_T_bruteforce(temperature, mat_calc);
+  T.fill_T_bruteforce(temperature, mat_exact);
+  T.fill_T(temperature, mat_calc, vtmp1, vtmp2);
 
   print_mat(mat_exact, T.dim);
   putchar('\n');
