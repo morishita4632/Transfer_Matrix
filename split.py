@@ -1,6 +1,6 @@
 import glob, os
 lattice = "Triangular"
-id = "99274"
+id = "100984"
 
 rfile = "out/" + lattice + '/' + "slurm-" + id + ".out"
 line = 0
@@ -16,6 +16,6 @@ with open(rfile) as rf:
             dir = "out/" + lattice + '/' + Js_str
             if not os.path.isdir(dir):
                 os.makedirs(dir)
-        # if line % 4 == 3:
-        #     with open(dir + '/' + Js_str + "_all.txt", mode='a') as wf:
-        #         wf.write(s_line)
+        if line % 4 == 3:
+            with open(dir + '/' + Js_str + "_all.txt", mode='a') as wf:
+                wf.write(s_line)
