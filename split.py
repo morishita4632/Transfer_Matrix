@@ -5,6 +5,7 @@ lattice = "Triangular"
 rfile = "out/Triangular/slurm_smaller-epsilon-101653.out"
 line = 0
 Js_str = ""
+dir = ""
 
 with open(rfile) as rf:
     for s_line in rf:
