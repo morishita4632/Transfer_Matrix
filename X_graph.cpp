@@ -3,9 +3,9 @@
 int main() {
   START();
 
-  int M1 = 3;
-  int M2 = M1 + 1;
-  double Js[4] = {0, 1e-2, 1, 1};
+  int M1 = 4;
+  int M2 = M1 + 2;
+  double Js[4] = {0, 1e-4, 1, 1};
   double EPS = 1e-12;
 
   Xsquare X1(Js, M1, EPS);
@@ -27,7 +27,7 @@ int main() {
   double* v2R_2 = alloc_dvector(X2.dim);
 
   int N = 10;
-  double Tmin = 0.01, Tmax = 0.5;
+  double Tmin = 0.4, Tmax = 1;
   double dT = (Tmax - Tmin) / N;
   double* x = alloc_dvector(N + 1);
   double* y1 = alloc_dvector(N + 1);

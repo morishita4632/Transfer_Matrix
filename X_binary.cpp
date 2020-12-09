@@ -3,16 +3,16 @@
 
 int main() {
   // 0011は収束しない？
-  vector<vector<double>> Js_s = {{1,1,0,100}, {1,1,0.25,100}, {1,1,0.5,100}, {1,1,0.75,100}};
+  vector<vector<double>> Js_s = {{0, 0, 1, 1}};
 
   for (auto Js_vec : Js_s) {
-    for (int M = 4; M <= 16; M++) {
+    for (int M = 3; M <= 3; M++) {
       START();
-      int M1 = M, M2 = M1 + 1;
+      int M1 = M, M2 = M1 + 2;
       // double Js[4] = {2, 2, 1, 1};
       double Js[4] = {Js_vec[0], Js_vec[1], Js_vec[2], Js_vec[3]};
       double EPS = 1e-12;
-      double L = 0.1, R = 0.7;
+      double L = 0.5, R = 0.72;
 
       Xsquare X1(Js, M1, EPS);
       double* vo_1 = alloc_dvector(X1.dim);
