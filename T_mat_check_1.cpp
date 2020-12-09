@@ -1,4 +1,4 @@
-#include "Triangular.h"
+#include "Triangular.hpp"
 
 // TMの愚直解を一応確かめる
 // anti-ferro の個数で表示。PBCに注意

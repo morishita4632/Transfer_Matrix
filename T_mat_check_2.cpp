@@ -1,4 +1,4 @@
-#include "Triangular.h"
+#include "Triangular.hpp"
 
 // TMを愚直解と比較する
 

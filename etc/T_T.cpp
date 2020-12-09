@@ -1,4 +1,4 @@
-#include "Triangular.h"
+#include "Triangular.hpp"
 
 // やるときはTriangular.hのコンストラクタ内の規格化をオフにする
 // 転置したものが表示される

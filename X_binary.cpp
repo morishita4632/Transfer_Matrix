@@ -1,5 +1,5 @@
 #include <vector>
-#include "Xsquare.h"
+#include "Xsquare.hpp"
 
 int main() {
   // 0011は収束しない？

@@ -1,4 +1,4 @@
-#include "Xsquare.h"
+#include "Xsquare.hpp"
 
 int main() {
   START();

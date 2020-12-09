@@ -1,4 +1,4 @@
-#include "X_Square.h"
+#include "X_Square.hpp"
 
 int main() {
   int M = 3;

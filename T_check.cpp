@@ -1,4 +1,4 @@
-#include "Triangular.h"
+#include "Triangular.hpp"
 
 // v2Rにはもともと0.0の成分があるのでそこを無視する必要がある
 

@@ -1,4 +1,4 @@
-#include "Triangular.h"
+#include "Triangular.hpp"
 
 int main() {
   START();

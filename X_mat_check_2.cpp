@@ -1,4 +1,4 @@
-#include "Xsquare.h"
+#include "Xsquare.hpp"
 
 // TMを愚直解と比較する
 

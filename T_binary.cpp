@@ -1,5 +1,5 @@
 #include <vector>
-#include "Triangular.h"
+#include "Triangular.hpp"
 
 int main() {
   vector<vector<double>> Js_s = {
