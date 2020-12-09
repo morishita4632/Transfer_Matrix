@@ -1,6 +1,8 @@
-import glob, os
+import glob
+import os
+lattice = "Triangular"
 
-rfile = "out/Triangular/slurm_smaller-epsilon-101653.out" 
+rfile = "out/Triangular/slurm_smaller-epsilon-101653.out"
 line = 0
 Js_str = ""
 
@@ -9,7 +11,8 @@ with open(rfile) as rf:
         line += 1
         if line % 52 == 1:
             Js_raw = [float(s) for s in s_line[5:-2].split(", ")]
-            Js_str = '_'.join([str(int(J) if J.is_integer() else J) for J in Js_raw])
+            Js_str = '_'.join([str(int(J) if J.is_integer() else J)
+                               for J in Js_raw])
             print(Js_str)
             dir = "out/" + lattice + '/' + Js_str
             if not os.path.isdir(dir):
