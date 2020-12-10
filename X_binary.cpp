@@ -3,10 +3,10 @@
 
 int main() {
   // 0011は収束しない？
-  vector<vector<double>> Js_s = {{0, 0, 1, 1}};
+  vector<vector<double>> Js_s = {{0, 1e-3, 1, 1}};
 
   for (auto Js_vec : Js_s) {
-    for (int M = 3; M <= 3; M++) {
+    for (int M = 11; M <= 11; M++) {
       START();
       int M1 = M, M2 = M1 + 2;
       // double Js[4] = {2, 2, 1, 1};
