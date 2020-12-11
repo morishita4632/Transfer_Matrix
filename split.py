@@ -1,8 +1,9 @@
 import glob
 import os
-lattice = "Triangular"
+lattice = "Xsquare"
+suffix = "_odd"
+rfile = "out/Xsquare/slurm.out"
 
-rfile = "out/Triangular/slurm_smaller-epsilon-101653.out"
 line = 0
 Js_str = ""
 dir = ""
@@ -19,5 +20,5 @@ with open(rfile) as rf:
             if not os.path.isdir(dir):
                 os.makedirs(dir)
         if line % 4 == 3:
-            with open(dir + '/' + Js_str + "_all.txt", mode='a') as wf:
+            with open(dir + '/' + Js_str + "_all" + suffix + ".txt", mode='a') as wf:
                 wf.write(s_line)
