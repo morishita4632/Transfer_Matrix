@@ -2,7 +2,6 @@
 #include "Xsquare.hpp"
 
 int main() {
-  // 0011は収束しない？
   vector<vector<double>> Js_s = {{0, 1e-3, 1, 1}};
 
   for (auto Js_vec : Js_s) {
