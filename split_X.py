@@ -1,7 +1,6 @@
 import glob
 import os
 lattice = "Xsquare"
-suffix = "_odd"
 rfile = "out/Xsquare/slurm.out"
 
 line = 0
@@ -19,6 +18,9 @@ with open(rfile) as rf:
             dir = "out/" + lattice + '/' + Js_str
             if not os.path.isdir(dir):
                 os.makedirs(dir)
-        if line % 4 == 3:
-            with open(dir + '/' + Js_str + "_all" + suffix + ".txt", mode='a') as wf:
+        if line % 8 == 3:
+            with open(dir + '/' + Js_str + "_even_all.txt", mode='a') as wf:
+                wf.write(s_line)
+        if line % 8 == 7:
+            with open(dir + '/' + Js_str + "_odd_all.txt", mode='a') as wf:
                 wf.write(s_line)
