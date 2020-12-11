@@ -5,7 +5,7 @@ int main() {
   vector<vector<double>> Js_s = {{2, 2, 1, 1}};
 
   for (auto Js_vec : Js_s) {
-    for (int M = 5; M <= 13; M += 2) {
+    for (int M = 4; M <= 15; M++) {
       START();
       int M1 = M, M2 = M1 + 2;
       double Js[4] = {Js_vec[0], Js_vec[1], Js_vec[2], Js_vec[3]};
