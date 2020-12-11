@@ -1,7 +1,7 @@
 import glob
 import os
 lattice = "Xsquare"
-rfile = "out/Xsquare/slurm.out"
+rfile = "out/Xsquare/slurm-106078.out"
 
 line = 0
 Js_str = ""
