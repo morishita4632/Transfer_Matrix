@@ -3,8 +3,8 @@
 
 int main() {
   START();
-  vector<vector<double>> Js_s = {{2, 2, 1, 1}, {1, 1, 1, 1}};
-  int M_start = 5, M_end = 15;
+  vector<vector<double>> Js_s = {{1, 1, 1, 1}};
+  int M_start = 3, M_end = 15;
 
   FILE* fp;
   for (auto Js_vec : Js_s) {
@@ -51,6 +51,11 @@ int main() {
         fp = fopen("./out/Xsquare/Js.txt", "a");
         for (int i = 0; i < 4; i++)
           fprintf(fp, "%.12f%c", X1.Js[i], (i == 3 ? '\n' : ' '));
+        fclose(fp);
+
+        fp = fopen("./out/Xsquare/Js_raw.txt", "a");
+        for (int i = 0; i < 4; i++)
+          fprintf(fp, "%.2f%c", Js[i], (i == 3 ? '\n' : ' '));
         fclose(fp);
       }
 
