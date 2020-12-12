@@ -4,10 +4,11 @@
 int main() {
   START();
   vector<vector<double>> Js_s = {{2, 2, 1, 1}, {1, 1, 1, 1}};
-  int M_start = 5, M_end = 9;
+  int M_start = 5, M_end = 15;
+
   FILE* fp;
   for (auto Js_vec : Js_s) {
-    START();
+    chrono_start = chrono::system_clock::now();
     for (int M = M_start; M <= M_end; M += 2) {
       int M1 = M, M2 = M1 + 2;
       double Js[4] = {Js_vec[0], Js_vec[1], Js_vec[2], Js_vec[3]};
@@ -56,8 +57,6 @@ int main() {
       fp = fopen("./out/Xsquare/Tc.txt", "a");
       fprintf(fp, "%.12f%c", Tc, (M == M_end ? '\n' : ' '));
       fclose(fp);
-
-      printf("M = %d, %d\n%.11f\n\n", M1, M2, Tc);
     }
     END();
   }
