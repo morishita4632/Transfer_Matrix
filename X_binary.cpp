@@ -2,11 +2,13 @@
 #include "Xsquare.hpp"
 
 int main() {
-  vector<vector<double>> Js_s = {{2, 2, 1, 1}};
-
+  START();
+  vector<vector<double>> Js_s = {{2, 2, 1, 1}, {1, 1, 1, 1}};
+  int M_start = 5, M_end = 9;
+  FILE* fp;
   for (auto Js_vec : Js_s) {
-    for (int M = 5; M <= 15; M+=2) {
-      START();
+    START();
+    for (int M = M_start; M <= M_end; M += 2) {
       int M1 = M, M2 = M1 + 2;
       double Js[4] = {Js_vec[0], Js_vec[1], Js_vec[2], Js_vec[3]};
       double EPS = 1e-12;
@@ -40,10 +42,23 @@ int main() {
       }
 
       double Tc = (l + r) / 2.0;
-      printf("J = (%.1f, %.1f, %.1f, %.1f)\n", Js[0], Js[1], Js[2], Js[3]);
-      printf("M = %d, %d\n%.11f\n\n", M1, M2, Tc);
 
-      // END();
+      if (M == M_start) {
+        for (int i = 0; i < 4; i++)
+          printf("%.12f%c", Js[i], (i == 3 ? '\n' : ' '));
+
+        fp = fopen("./out/Xsquare/Js.txt", "a");
+        for (int i = 0; i < 4; i++)
+          fprintf(fp, "%.12f%c", X1.Js[i], (i == 3 ? '\n' : ' '));
+        fclose(fp);
+      }
+
+      fp = fopen("./out/Xsquare/Tc.txt", "a");
+      fprintf(fp, "%.12f%c", Tc, (M == M_end ? '\n' : ' '));
+      fclose(fp);
+
+      printf("M = %d, %d\n%.11f\n\n", M1, M2, Tc);
     }
+    END();
   }
 }
