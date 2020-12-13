@@ -1,7 +1,7 @@
 #include <math.h>
 #include <chrono>
-#include <random>
 #include <iostream>
+#include <random>
 using namespace std;
 
 chrono::system_clock::time_point chrono_start, chrono_end;
@@ -18,9 +18,9 @@ static inline double* alloc_dvector(int n) {
 }
 
 /* allocate m x n column-major matrix of double */
-static inline double **alloc_dmatrix(int m, int n) {
+static inline double** alloc_dmatrix(int m, int n) {
   int i;
-  double **mat;
+  double** mat;
   mat = (double**)malloc((size_t)(n * sizeof(double*)));
   if (mat == NULL) {
     fprintf(stderr, "Error: allocation failed in alloc_dmatrix\n");
@@ -31,7 +31,8 @@ static inline double **alloc_dmatrix(int m, int n) {
     fprintf(stderr, "Error: allocation failed in alloc_dmatrix\n");
     exit(1);
   }
-  for (i = 1; i < n; ++i) mat[i] = mat[i-1] + m;
+  for (i = 1; i < n; ++i)
+    mat[i] = mat[i - 1] + m;
   return mat;
 }
 
@@ -72,4 +73,8 @@ static inline void END() {
           .count() /
       1000000.0);
   printf("time %.2lf[s],  %.2lf[m]\n", time, time / 60.0);
+}
+
+static inline time_t now() {
+  return chrono::system_clock::to_time_t(chrono::system_clock::now());
 }
