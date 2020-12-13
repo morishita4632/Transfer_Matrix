@@ -52,18 +52,18 @@ int main() {
         for (int i = 0; i < 4; i++)
           printf("%.2f%c", Js[i], (i == 3 ? '\n' : ' '));
 
-        fp = fopen("./out/Xsquare/Js.txt", "a");
+        fp = fopen("./out/Xsquare/Js_rand.txt", "a");
         for (int i = 0; i < 4; i++)
           fprintf(fp, "%.12f%c", X1.Js[i], (i == 3 ? '\n' : ' '));
         fclose(fp);
 
-        fp = fopen("./out/Xsquare/Js_raw.txt", "a");
+        fp = fopen("./out/Xsquare/Js_raw_rand.txt", "a");
         for (int i = 0; i < 4; i++)
           fprintf(fp, "%.2f%c", Js[i], (i == 3 ? '\n' : ' '));
         fclose(fp);
       }
 
-      fp = fopen("./out/Xsquare/Tc.txt", "a");
+      fp = fopen("./out/Xsquare/Tc_rand.txt", "a");
       fprintf(fp, "%.12f%c", Tc, (M == M_end ? '\n' : ' '));
       fclose(fp);
     }
