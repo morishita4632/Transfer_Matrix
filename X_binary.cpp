@@ -3,7 +3,7 @@
 
 int main() {
   START();
-  vector<vector<double>> Js_s = {{1, 1, 1, 1}};
+  vector<vector<double>> Js_s = {{1,1,2,2}, {1,1,3,3}, {1,1,5,5}, {1,1,10,10}, {2,2,1,1}, {3,3,1,1}, {5,5,1,1}, {10,10,1,1}};
   int M_start = 3, M_end = 15;
 
   FILE* fp;
