@@ -3,7 +3,7 @@
 
 int main() {
   START();
-  vector<vector<double>> Js_s = {{0,0,1,20},{0,0,1,50},{0,0,1,100},{0,0,1,200},{0,0,1,500}};
+  vector<vector<double>> Js_s = {{0,0,1,500}};
   int M_start = 3, M_end = 15;
 
   FILE* fp;
@@ -13,7 +13,7 @@ int main() {
       int M1 = M, M2 = M1 + 2;
       double Js[4] = {Js_vec[0], Js_vec[1], Js_vec[2], Js_vec[3]};
       double EPS = 1e-12;
-      double L = 0.2, R = 0.8;
+      double L = 0.1, R = 0.8;
 
       Xsquare X1(Js, M1, EPS);
       double* vo_1 = alloc_dvector(X1.dim);
