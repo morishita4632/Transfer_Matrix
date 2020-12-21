@@ -3,21 +3,21 @@
 
 int main() {
   int seed = now();
-  printf("seed = %ld", seed);
+  printf("seed = %ld\n", seed);
   START(seed);
 
-  int num = 10;
+  int num = 20;
 
   int M_start = 3, M_end = 15;
 
   FILE* fp;
   while (num-- > 0) {
     chrono_start = chrono::system_clock::now();
+    double Js[4] = {rand01(), rand01(), rand01()*100, rand01()*100};
     for (int M = M_start; M <= M_end; M += 2) {
       int M1 = M, M2 = M1 + 2;
-      double Js[4] = {rand01(), rand01(), rand01(), rand01()};
       double EPS = 1e-12;
-      double L = 0.2, R = 0.8;
+      double L = 0.1, R = 0.8;
 
       Xsquare X1(Js, M1, EPS);
       double* vo_1 = alloc_dvector(X1.dim);
