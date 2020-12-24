@@ -6,14 +6,14 @@ int main() {
   printf("seed = %ld\n", seed);
   START(seed);
 
-  int num = 11;
+  int num = 20;
 
   int M_start = 3, M_end = 15;
 
   FILE* fp;
   while (num-- > 0) {
     chrono_start = chrono::system_clock::now();
-    double Js[4] = {rand01(), rand01(), rand01(), rand01()*100};
+    double Js[4] = {rand01(), rand01()*100, rand01(), rand01()};
     for (int M = M_start; M <= M_end; M += 2) {
       int M1 = M, M2 = M1 + 2;
       double EPS = 1e-12;
