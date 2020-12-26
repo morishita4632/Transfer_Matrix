@@ -7,7 +7,7 @@ int main() {
   START(seed);
 
   int num = 50;
-  int Js_range[4] = {10,10,1,1};
+  int Js_range[4] = {100,100,1,1};
   
   int M_start = 3, M_end = 15;
   char buff_Js[128], buff_Js_raw[128], buff_Tc[128];

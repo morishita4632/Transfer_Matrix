@@ -6,8 +6,8 @@ int main() {
   printf("seed = %ld\n", seed);
   START(seed);
 
-  int num = 50;
-  int Js_range[4] = {1,1,10,10};
+  int num = 10;
+  int Js_range[4] = {1,1,100,100};
   
   int M_start = 3, M_end = 15;
   char buff_Js[128], buff_Js_raw[128], buff_Tc[128];
