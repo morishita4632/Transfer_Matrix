@@ -6,7 +6,7 @@ int main() {
   printf("seed = %ld\n", seed);
   START(seed);
 
-  int num = 10;
+  int num = 4;
   int Js_range[4] = {1,1,1,100};
   
   int M_start = 3, M_end = 15;
